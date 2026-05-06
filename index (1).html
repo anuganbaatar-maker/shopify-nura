@@ -1,0 +1,2248 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Custom Checkout Шийдэл · 5W 2H Танилцуулга · Таван Богд Нура</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-deep: #0A1628;
+  --bg-mid: #142540;
+  --bg-card: #1A2D4D;
+  --bg-card-soft: rgba(26, 45, 77, 0.5);
+  --line: rgba(212, 165, 116, 0.18);
+  --line-strong: rgba(212, 165, 116, 0.4);
+  --ink: #F4F1EA;
+  --ink-dim: #B8C0CC;
+  --ink-soft: #7A8699;
+  --gold: #D4A574;
+  --gold-soft: #E8C39A;
+  --amber: #C97D3F;
+  --teal: #5DA5A8;
+  --teal-soft: #7FC1C4;
+  --rose: #C76B71;
+  --moss: #7AA37E;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  background: var(--bg-deep);
+  color: var(--ink);
+  font-family: 'Manrope', -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse at top left, rgba(212, 165, 116, 0.06), transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(93, 165, 168, 0.05), transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Animated floating orbs in background */
+.bg-orbs {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.bg-orbs::before, .bg-orbs::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(70px);
+  animation: orbFloat 22s ease-in-out infinite;
+}
+.bg-orbs::before {
+  width: 560px; height: 560px;
+  background: radial-gradient(circle, rgba(212, 165, 116, 0.55), transparent 70%);
+  top: -12%; left: -10%;
+  opacity: 0.55;
+}
+.bg-orbs::after {
+  width: 680px; height: 680px;
+  background: radial-gradient(circle, rgba(93, 165, 168, 0.45), transparent 70%);
+  bottom: -18%; right: -12%;
+  opacity: 0.45;
+  animation-delay: -11s;
+  animation-duration: 28s;
+}
+
+/* Third orb floating across middle */
+.bg-orbs > .orb-mid {
+  position: absolute;
+  width: 380px; height: 380px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(199, 107, 113, 0.22), transparent 70%);
+  filter: blur(60px);
+  top: 35%; left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0.5;
+  animation: orbDrift 32s ease-in-out infinite;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33%      { transform: translate(80px, 60px) scale(1.18); }
+  66%      { transform: translate(-50px, 90px) scale(0.92); }
+}
+
+@keyframes orbDrift {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.45; }
+  50%      { transform: translate(-30%, -65%) scale(1.25); opacity: 0.6; }
+}
+
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+  opacity: 0.025;
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: overlay;
+}
+
+.deck {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 56px 72px 88px;
+  display: none;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.slide.active {
+  display: flex;
+  animation: slideIn 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.slide.active.big-letter-slide {
+  display: grid;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(28px) scale(0.985); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); }
+}
+
+/* Stagger animations for child elements */
+.slide.active .slide-tag         { animation: fadeUp 0.7s 0.10s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.slide.active h1.title           { animation: fadeUp 0.9s 0.18s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.slide.active h2.h               { animation: fadeUp 0.85s 0.18s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.slide.active p.lead             { animation: fadeUp 0.75s 0.30s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.slide.active .sub-line          { animation: fadeUp 0.8s 0.30s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+.slide.active .author-card       { animation: fadeUp 0.75s 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.slide-num {
+  position: absolute;
+  top: 32px; right: 72px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--ink-soft);
+}
+
+.slide-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: flex; align-items: center; gap: 14px;
+}
+
+.slide-tag::before {
+  content: '';
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold), rgba(212, 165, 116, 0.2));
+  animation: tagLine 1.4s 0.4s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  width: 28px;
+}
+
+@keyframes tagLine {
+  from { width: 0; opacity: 0; }
+  to   { width: 28px; opacity: 1; }
+}
+
+h1.title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(40px, 5.2vw, 76px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+h1.title em {
+  font-style: italic;
+  background: linear-gradient(110deg, #E8C39A 0%, #F5D9A8 25%, #FFE4B8 45%, #F5D9A8 65%, #D4A574 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+h2.h {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: clamp(28px, 3.6vw, 48px);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-bottom: 24px;
+}
+
+h2.h em {
+  font-style: italic;
+  background: linear-gradient(110deg, #E8C39A 0%, #F5D9A8 25%, #FFE4B8 45%, #F5D9A8 65%, #D4A574 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 6s ease-in-out infinite;
+}
+
+h3.sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 26px;
+  letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+
+p.lead {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--ink-dim);
+  max-width: 760px;
+}
+
+p { color: var(--ink-dim); }
+
+.mono {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+}
+
+/* Title slide */
+.slide-title {
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.slide-title .meta-top {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  width: 100%;
+}
+
+.brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+}
+
+.brand-sub {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--ink-soft);
+  margin-top: 6px;
+  font-style: normal;
+}
+
+.slide-title .center-content {
+  margin: auto 0;
+  max-width: 1100px;
+}
+
+.slide-title h1 {
+  margin-bottom: 32px;
+}
+
+.slide-title .sub-line {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--ink-dim);
+  max-width: 850px;
+  line-height: 1.4;
+  margin-bottom: 56px;
+}
+
+.author-card {
+  display: flex; gap: 56px;
+  padding: 24px 0;
+  border-top: 1px solid var(--line);
+  max-width: 700px;
+}
+
+.author-card div span {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+
+.author-card div strong {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 19px;
+  color: var(--ink);
+}
+
+.decision-stamp { display: none; }
+
+/* Mountain SVG decoration */
+.mountains {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 240px;
+  pointer-events: none;
+  opacity: 0.18;
+  animation: mountainDrift 16s ease-in-out infinite;
+}
+
+@keyframes mountainDrift {
+  0%, 100% { transform: translateX(0); opacity: 0.18; }
+  50%      { transform: translateX(-12px); opacity: 0.22; }
+}
+
+/* 5W 2H grid */
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 12px;
+  margin-top: 28px;
+  flex: 1;
+}
+
+.method-cell {
+  background: var(--bg-card-soft);
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 22px 18px;
+  display: flex; flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.4s ease, background 0.4s ease;
+  animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.method-cell::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(212, 165, 116, 0.12), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.method-cell:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 16px 40px -12px rgba(212, 165, 116, 0.25), 0 0 0 1px rgba(212, 165, 116, 0.2);
+  background: rgba(26, 45, 77, 0.7);
+}
+.method-cell:hover::after { opacity: 1; }
+
+.method-cell:nth-child(1) { animation-delay: 0.05s; }
+.method-cell:nth-child(2) { animation-delay: 0.12s; }
+.method-cell:nth-child(3) { animation-delay: 0.19s; }
+.method-cell:nth-child(4) { animation-delay: 0.26s; }
+.method-cell:nth-child(5) { animation-delay: 0.33s; }
+.method-cell:nth-child(6) { animation-delay: 0.40s; }
+.method-cell:nth-child(7) { animation-delay: 0.47s; }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.method-letter {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 56px;
+  line-height: 0.9;
+  color: var(--gold);
+  margin-bottom: 8px;
+  letter-spacing: -0.04em;
+  transition: text-shadow 0.4s ease, transform 0.4s ease;
+  display: inline-block;
+}
+
+.method-cell:hover .method-letter {
+  text-shadow: 0 0 24px rgba(212, 165, 116, 0.6);
+  transform: scale(1.06);
+}
+
+.method-en {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.method-mn {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.method-q {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--ink-dim);
+}
+
+/* Big letter slide layout */
+.big-letter-slide {
+  grid-template-columns: 320px 1fr;
+  gap: 56px;
+  flex: 1;
+  align-items: stretch;
+}
+
+.big-letter {
+  display: flex; flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-right: 1px solid var(--line);
+  padding-right: 56px;
+  position: relative;
+}
+
+.big-letter .letter {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(160px, 22vw, 320px);
+  line-height: 0.85;
+  color: var(--gold);
+  letter-spacing: -0.05em;
+  position: relative;
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, #FFE4B8 0%, #E8C39A 30%, #D4A574 60%, #C97D3F 100%);
+  background-size: 250% 250%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: bigLetterShine 8s ease-in-out infinite;
+  filter: drop-shadow(0 0 30px rgba(212, 165, 116, 0.25));
+}
+
+@keyframes bigLetterShine {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+.big-letter .letter::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 6px;
+  width: 60%;
+  height: 2px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+
+.big-letter .word-en {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.big-letter .word-mn {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 36px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.big-letter-content {
+  display: flex; flex-direction: column;
+  padding-top: 24px;
+}
+
+.big-letter-content h2 {
+  margin-bottom: 18px;
+}
+
+.big-letter-content > .lead {
+  margin-bottom: 28px;
+}
+
+.detail-list {
+  list-style: none;
+  margin-top: 8px;
+}
+
+.detail-list > li {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 18px;
+  padding: 16px 0;
+  border-bottom: 1px dashed var(--line);
+  align-items: start;
+}
+
+.detail-list > li:last-child { border-bottom: none; }
+
+.detail-list .num {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 24px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.detail-list .item-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 19px;
+  color: var(--ink);
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.detail-list .item-desc {
+  font-size: 13.5px;
+  color: var(--ink-dim);
+  line-height: 1.55;
+}
+
+.detail-list .item-desc strong { color: var(--ink); font-weight: 500; }
+
+.tag-row {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin-top: 8px;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  background: rgba(212, 165, 116, 0.08);
+  color: var(--gold);
+  border: 1px solid var(--line);
+}
+
+.tag.team { background: rgba(93, 165, 168, 0.08); color: var(--teal-soft); border-color: rgba(93, 165, 168, 0.3); }
+.tag.tech { background: rgba(122, 163, 126, 0.08); color: var(--moss); border-color: rgba(122, 163, 126, 0.3); }
+
+/* Architecture diagram */
+.arch-canvas {
+  flex: 1;
+  margin-top: 24px;
+  position: relative;
+  background: var(--bg-card-soft);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 36px;
+  overflow: hidden;
+}
+
+.arch-svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Pros/Cons block */
+.pc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+  flex: 1;
+}
+
+.pc-block {
+  background: var(--bg-card-soft);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent-color);
+  border-radius: 3px;
+  padding: 28px 30px;
+}
+
+.pc-block.pros { --accent-color: var(--moss); }
+.pc-block.cons { --accent-color: var(--rose); }
+
+.pc-head {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.pc-head .icon {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  background: var(--accent-color);
+  color: var(--bg-deep);
+  font-weight: 600;
+}
+
+.pc-head h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.pc-head .count {
+  margin-left: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--ink-soft);
+}
+
+.pc-list { list-style: none; }
+.pc-list li {
+  padding: 12px 0 12px 24px;
+  border-bottom: 1px dashed var(--line);
+  position: relative;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-dim);
+}
+.pc-list li:last-child { border-bottom: none; }
+.pc-list li::before {
+  content: ''; position: absolute; left: 0; top: 22px;
+  width: 12px; height: 1px; background: var(--accent-color);
+}
+.pc-list li strong { color: var(--ink); font-weight: 500; }
+.pc-list li .pc-tag {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  padding: 2px 6px;
+  letter-spacing: 0.1em;
+  background: rgba(255,255,255,0.04);
+  color: var(--ink-soft);
+  border-radius: 2px;
+  margin-left: 6px;
+  text-transform: uppercase;
+}
+
+/* Cost breakdown */
+.cost-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin-top: 24px;
+  flex: 1;
+}
+
+.cost-card {
+  background: var(--bg-card-soft);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 32px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.4s ease;
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.cost-card:nth-child(1) { animation-delay: 0.15s; }
+.cost-card:nth-child(2) { animation-delay: 0.30s; }
+
+.cost-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.cost-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 18px 44px -18px rgba(212, 165, 116, 0.3);
+}
+.cost-card:hover::before { opacity: 1; }
+
+.cost-card h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+
+.cost-card .viz-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.cost-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--line);
+  align-items: baseline;
+}
+
+.cost-row:last-child {
+  border-bottom: none;
+  border-top: 2px solid var(--line-strong);
+  margin-top: 8px;
+  padding-top: 16px;
+}
+
+.cost-row.total {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+}
+
+.cost-row .label {
+  font-size: 14px;
+  color: var(--ink-dim);
+}
+
+.cost-row .label small {
+  display: block;
+  font-size: 11px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+
+.cost-row .amount {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.cost-row.total .amount {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 26px;
+  color: var(--gold);
+}
+
+/* Timeline / roadmap */
+.roadmap {
+  margin-top: 32px;
+  flex: 1;
+  position: relative;
+}
+
+.roadmap::before {
+  content: '';
+  position: absolute;
+  left: 0; right: 0;
+  top: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  background-size: 200% 100%;
+  animation: roadmapLine 6s ease-in-out infinite;
+}
+
+@keyframes roadmapLine {
+  0%, 100% { background-position: -100% 0; }
+  50%      { background-position: 100% 0; }
+}
+
+.roadmap-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  position: relative;
+}
+
+.phase {
+  padding: 0 20px;
+  position: relative;
+  text-align: center;
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.phase:nth-child(1) { animation-delay: 0.1s; }
+.phase:nth-child(2) { animation-delay: 0.25s; }
+.phase:nth-child(3) { animation-delay: 0.4s; }
+.phase:nth-child(4) { animation-delay: 0.55s; }
+.phase:nth-child(5) { animation-delay: 0.7s; }
+
+.phase-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--ink-soft);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.phase-dot {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--bg-deep);
+  border: 2px solid var(--gold);
+  margin: 0 auto 30px;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.6);
+  animation: phasePulse 2.6s ease-in-out infinite;
+}
+.phase:nth-child(1) .phase-dot { animation-delay: 0s; }
+.phase:nth-child(2) .phase-dot { animation-delay: 0.4s; }
+.phase:nth-child(3) .phase-dot { animation-delay: 0.8s; }
+.phase:nth-child(4) .phase-dot { animation-delay: 1.2s; }
+.phase:nth-child(5) .phase-dot { animation-delay: 1.6s; }
+
+@keyframes phasePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.55); }
+  50%      { box-shadow: 0 0 0 12px rgba(212, 165, 116, 0); }
+}
+
+.phase-dot::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+}
+
+.phase-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.2;
+}
+
+.phase-time {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.phase-list {
+  list-style: none;
+  text-align: left;
+  margin-top: 14px;
+}
+
+.phase-list li {
+  font-size: 12px;
+  color: var(--ink-dim);
+  padding: 5px 0 5px 12px;
+  position: relative;
+  line-height: 1.5;
+}
+
+.phase-list li::before {
+  content: '·';
+  position: absolute;
+  left: 0;
+  color: var(--gold);
+  font-weight: bold;
+}
+
+/* Number callout strip */
+.number-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin: 32px 0 20px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.number-strip > div {
+  padding: 24px 28px;
+  border-right: 1px solid var(--line);
+}
+.number-strip > div:last-child { border-right: none; }
+
+.ns-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 1;
+  color: var(--gold);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+.ns-num em { font-style: italic; font-size: 28px; color: var(--gold-soft); }
+
+.ns-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.ns-sub {
+  font-size: 13px;
+  color: var(--ink-dim);
+  font-style: italic;
+  font-family: 'Cormorant Garamond', serif;
+}
+
+/* Risk grid */
+.risk-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+  margin-top: 22px;
+  flex: 1;
+}
+
+.risk-card {
+  background: var(--bg-card-soft);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 24px;
+  display: flex; flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.4s ease, background 0.3s ease;
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.risk-card:nth-child(1) { animation-delay: 0.10s; }
+.risk-card:nth-child(2) { animation-delay: 0.18s; }
+.risk-card:nth-child(3) { animation-delay: 0.26s; }
+.risk-card:nth-child(4) { animation-delay: 0.34s; }
+.risk-card:nth-child(5) { animation-delay: 0.42s; }
+.risk-card:nth-child(6) { animation-delay: 0.50s; }
+
+.risk-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  background: rgba(26, 45, 77, 0.7);
+  box-shadow: 0 14px 36px -14px rgba(212, 165, 116, 0.25);
+}
+
+.risk-card::before {
+  content: ''; position: absolute; top: 18px; right: 18px;
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.risk-card.high::before { background: var(--rose); box-shadow: 0 0 12px rgba(199, 107, 113, 0.6); animation: pulse 2s infinite; }
+.risk-card.med::before  { background: var(--amber); }
+.risk-card.low::before  { background: var(--moss); }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.3); }
+}
+
+.risk-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  color: var(--ink-soft);
+  margin-bottom: 12px;
+}
+
+.risk-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 19px;
+  margin-bottom: 8px;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.risk-desc { font-size: 13px; color: var(--ink-dim); line-height: 1.55; margin-bottom: 12px; }
+
+.risk-mitigation {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
+  font-size: 12px;
+  color: var(--ink-dim);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+}
+.risk-mitigation strong { color: var(--moss); font-style: normal; font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; display: block; margin-bottom: 4px; }
+
+/* Closing slide */
+.end-slide {
+  align-items: center; justify-content: center;
+  text-align: center;
+}
+.end-slide h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(48px, 7vw, 96px);
+  color: var(--ink);
+  margin-bottom: 24px;
+  letter-spacing: -0.02em;
+}
+.end-slide .quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 24px;
+  color: var(--gold-soft);
+  max-width: 720px;
+  line-height: 1.5;
+  margin: 0 auto 56px;
+}
+
+/* Navigation */
+.nav-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 64px;
+  background: linear-gradient(180deg, transparent, rgba(10, 22, 40, 0.95) 30%);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 56px;
+  z-index: 100;
+}
+
+.progress-track {
+  flex: 1;
+  display: flex;
+  gap: 5px;
+  margin: 0 28px;
+  align-items: center;
+}
+
+.progress-dot {
+  flex: 1;
+  height: 2px;
+  background: rgba(255,255,255,0.08);
+  cursor: pointer;
+  transition: background 0.3s ease, height 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-dot:hover { background: rgba(255,255,255,0.2); }
+.progress-dot.active {
+  background: var(--gold); height: 3px;
+}
+.progress-dot.active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: dotShimmer 2.5s ease-in-out infinite;
+}
+.progress-dot.visited { background: rgba(212,165,116,0.4); }
+
+@keyframes dotShimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.nav-btn {
+  width: 38px; height: 38px;
+  border: 1px solid var(--line);
+  background: transparent;
+  border-radius: 50%;
+  color: var(--ink);
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 18px;
+  position: relative;
+}
+.nav-btn::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 165, 116, 0.4), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: -1;
+}
+.nav-btn:hover:not(:disabled) {
+  border-color: var(--gold); color: var(--gold);
+  transform: scale(1.12);
+  box-shadow: 0 0 0 4px rgba(212, 165, 116, 0.08);
+}
+.nav-btn:hover:not(:disabled)::before { opacity: 1; }
+.nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.kbd-hint {
+  position: fixed;
+  bottom: 78px; right: 56px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--ink-soft);
+  letter-spacing: 0.15em;
+  z-index: 99;
+  display: flex; gap: 8px; align-items: center;
+}
+.kbd-hint kbd {
+  display: inline-block;
+  padding: 2px 6px;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--bg-mid);
+  font-family: inherit;
+}
+
+/* Hero quote / approach intro slide */
+.approach-hero {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.approach-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  margin-top: 36px;
+}
+
+.approach-card {
+  background: var(--bg-card-soft);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 28px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, box-shadow 0.4s ease, background 0.3s ease;
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.approach-card:nth-child(1) { animation-delay: 0.20s; }
+.approach-card:nth-child(2) { animation-delay: 0.32s; }
+.approach-card:nth-child(3) { animation-delay: 0.44s; }
+
+.approach-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold);
+  box-shadow: 0 18px 40px -16px rgba(212, 165, 116, 0.3);
+  background: rgba(26, 45, 77, 0.7);
+}
+
+.approach-card .step-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 14px;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.approach-card h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 500;
+  font-size: 22px;
+  color: var(--ink);
+  margin-bottom: 12px;
+  line-height: 1.2;
+}
+
+.approach-card p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--ink-dim);
+}
+
+.approach-card.highlight {
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.08), rgba(212, 165, 116, 0.02));
+  border-color: var(--gold);
+}
+
+.approach-card.highlight::after {
+  content: '';
+  position: absolute;
+  top: -50%; left: -50%;
+  width: 200%; height: 200%;
+  background: linear-gradient(90deg, transparent, rgba(212, 165, 116, 0.08), transparent);
+  transform: rotate(35deg);
+  animation: cardSweep 7s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes cardSweep {
+  0%, 100% { transform: translateX(-100%) rotate(35deg); }
+  50%      { transform: translateX(100%) rotate(35deg); }
+}
+
+.approach-card.highlight::before {
+  content: '★';
+  position: absolute;
+  top: 14px; right: 18px;
+  color: var(--gold);
+  font-size: 16px;
+  z-index: 1;
+  animation: starTwinkle 3s ease-in-out infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.6; transform: scale(1.2); }
+}
+
+/* Print */
+@media print {
+  .nav-bar, .kbd-hint { display: none; }
+  .slide { display: flex; page-break-after: always; height: auto; min-height: 100vh; }
+  .slide.big-letter-slide { display: grid; }
+}
+
+@media (max-width: 1100px) {
+  .slide { padding: 32px 32px 80px; }
+  .method-grid { grid-template-columns: repeat(4, 1fr); }
+  .big-letter-slide { grid-template-columns: 1fr; }
+  .big-letter { border-right: none; border-bottom: 1px solid var(--line); padding-right: 0; padding-bottom: 32px; }
+  .roadmap-grid { grid-template-columns: 1fr 1fr; }
+  .roadmap::before { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-orbs"><div class="orb-mid"></div></div>
+
+<div class="deck" id="deck">
+
+  <!-- ============ SLIDE 1: TITLE ============ -->
+  <section class="slide slide-title active">
+    <div class="meta-top">
+      <div class="brand">
+        Tavan Bogd Group
+        <span class="brand-sub">JOINT EFFORTS · KEY TO SUCCESS</span>
+      </div>
+      <div class="mono" style="color: var(--ink-soft);">2026 · Q2 · IMPLEMENTATION BRIEF</div>
+    </div>
+
+    <div class="center-content">
+      <div class="slide-tag">5W 2H Аргачлал · Хэрэгжүүлэлтийн Төлөвлөгөө</div>
+      <h1 class="title">
+        Төлбөр төлөх <em>Custom Checkout</em><br>
+        хуудас хөгжүүлэлт.
+      </h1>
+      <div class="sub-line">
+        Shopify Custom App дотор хөгжүүлэгдсэн,<br>
+        Таван Богд бүлгийн охин компаниудад зориулсан private шийдэл.
+      </div>
+
+      <div class="author-card">
+        <div>
+          <span>КОМПАНИ</span>
+          <strong>Таван Богд Нура ХХК</strong>
+        </div>
+      </div>
+    </div>
+
+    <svg class="mountains" viewBox="0 0 1400 240" preserveAspectRatio="none">
+      <path d="M0,240 L0,140 L180,60 L320,150 L520,40 L720,170 L920,80 L1120,160 L1280,90 L1400,140 L1400,240 Z" fill="rgba(212,165,116,0.15)"/>
+      <path d="M0,240 L0,180 L150,110 L350,170 L580,90 L780,180 L980,120 L1200,190 L1400,150 L1400,240 Z" fill="rgba(93,165,168,0.18)"/>
+    </svg>
+  </section>
+
+  <!-- ============ SLIDE 2: APPROACH OVERVIEW ============ -->
+  <section class="slide approach-hero">
+    <div class="slide-num mono">02 / 13</div>
+    <div class="slide-tag">Сонгосон зам · Selected Approach</div>
+    <h2 class="h">Бид <em>Custom App</em> хандлагаар явна</h2>
+    <p class="lead">Shopify-ийн <strong style="color: var(--ink); font-style: normal;">Custom App (private)</strong> дотор хөгжүүлэгдэх checkout шийдэл. Олон нийтэд харагдахгүй, зөвхөн бидний store болон Таван Богд бүлгийн охин компаниудад түгээгдэнэ. Public app биш тул Shopify-ийн approval хүлээх шаардлагагүй.</p>
+
+    <div class="approach-grid">
+      <div class="approach-card">
+        <div class="step-num">АЛХАМ 01</div>
+        <h4>Shopify дэлгүүр</h4>
+        <p>Бүтээгдэхүүн каталог, тэрэг, маркетинг, нөөцийн менежмент Shopify дээр. Stable, scalable, тестлэгдсэн ecosystem ашиглана.</p>
+      </div>
+
+      <div class="approach-card highlight">
+        <div class="step-num">АЛХАМ 02 · ҮНДСЭН</div>
+        <h4>Custom App + Checkout хуудас</h4>
+        <p>Shopify Custom App дотор бүтсэн private checkout. Олон нийтэд харагдахгүй, App Store-руу submit хийхгүй. Монгол хаяг, QPay, SocialPay, банк бүгдийг бид өөрсдөө контрол хийнэ.</p>
+      </div>
+
+      <div class="approach-card">
+        <div class="step-num">АЛХАМ 03</div>
+        <h4>Охин компаниудад түгээх</h4>
+        <p>Custom App-ийн install link дамжуулж охин компаниуд өөрсдөө суулгана, эсвэл бид install хийж өгнө. Shopify-аас зөвшөөрөл шаардлагагүй.</p>
+      </div>
+    </div>
+
+    <div class="number-strip" style="margin-top: 36px;">
+      <div>
+        <div class="ns-label">App төрөл</div>
+        <div class="ns-num">Custom<em>/Private</em></div>
+        <div class="ns-sub">Public App биш</div>
+      </div>
+      <div>
+        <div class="ns-label">Shopify approval</div>
+        <div class="ns-num">Шаард<em>лагагүй</em></div>
+        <div class="ns-sub">Custom App-д review байхгүй</div>
+      </div>
+      <div>
+        <div class="ns-label">Зорилтот хэрэглэгч</div>
+        <div class="ns-num">ТБ <em>бүлэг</em></div>
+        <div class="ns-sub">Охин компаниуд</div>
+      </div>
+      <div>
+        <div class="ns-label">PCI DSS</div>
+        <div class="ns-num">QPay</div>
+        <div class="ns-sub">Банк болон gateway хариуцна</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 3: 5W 2H Framework Reminder ============ -->
+  <section class="slide">
+    <div class="slide-num mono">03 / 13</div>
+    <div class="slide-tag">Аргачлал · Methodology</div>
+    <h2 class="h">Шийдлээ <em>5W 2H</em>-ээр задлан тайлбарлая</h2>
+    <p class="lead">Дараагийн 7 slide-д тус бүр нэг асуултад дэлгэрэнгүй хариулна.</p>
+
+    <div class="method-grid">
+      <div class="method-cell">
+        <div class="method-letter">W</div>
+        <div class="method-en">What</div>
+        <div class="method-mn">Юу?</div>
+        <div class="method-q">Юу хийх вэ? Custom checkout-ийн scope.</div>
+      </div>
+      <div class="method-cell">
+        <div class="method-letter">W</div>
+        <div class="method-en">Why</div>
+        <div class="method-mn">Яагаад?</div>
+        <div class="method-q">Яагаад energy-р явах ёстой вэ?</div>
+      </div>
+      <div class="method-cell">
+        <div class="method-letter">W</div>
+        <div class="method-en">Who</div>
+        <div class="method-mn">Хэн?</div>
+        <div class="method-q">Хэн хөгжүүлэх, хэн хариуцах вэ?</div>
+      </div>
+      <div class="method-cell">
+        <div class="method-letter">W</div>
+        <div class="method-en">Where</div>
+        <div class="method-mn">Хаана?</div>
+        <div class="method-q">Аритектур, infra, домэйн.</div>
+      </div>
+      <div class="method-cell">
+        <div class="method-letter">W</div>
+        <div class="method-en">When</div>
+        <div class="method-mn">Хэзээ?</div>
+        <div class="method-q">Phase, milestone, launch огноо.</div>
+      </div>
+      <div class="method-cell">
+        <div class="method-letter">H</div>
+        <div class="method-en">How</div>
+        <div class="method-mn">Яаж?</div>
+        <div class="method-q">Stack, integration, security.</div>
+      </div>
+      <div class="method-cell">
+        <div class="method-letter">H</div>
+        <div class="method-en">How much</div>
+        <div class="method-mn">Хэр их?</div>
+        <div class="method-q">Зардал, нөөц, ROI.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 4: WHAT ============ -->
+  <section class="slide">
+    <div class="slide-num mono">04 / 13</div>
+    <div class="slide-tag">5W 2H · 1 / 7</div>
+
+    <div class="big-letter-slide">
+      <div class="big-letter">
+        <div class="word-en">WHAT</div>
+        <div class="letter">W</div>
+        <div class="word-mn">Юу?</div>
+      </div>
+
+      <div class="big-letter-content">
+        <h2 class="h">Юуг <em>хөгжүүлэх</em> вэ?</h2>
+        <p class="lead">Shopify <strong style="color: var(--ink); font-style: normal;">Custom App (private)</strong> дотор бүтсэн төлбөрийн хуудас. Олон нийтэд биш, зөвхөн Таван Богд бүлгийн охин компаниудад зориулсан шийдэл.</p>
+
+        <ul class="detail-list">
+          <li>
+            <div class="num">01</div>
+            <div>
+              <div class="item-title">Shopify Custom App (private)</div>
+              <div class="item-desc">Бид Shopify Partners dashboard дээр Custom App үүсгэнэ. Энэ нь Shopify App Store-руу submit хийгдэхгүй, public review-д орохгүй. Install link нь зөвхөн өгсөн store-руу хүчинтэй болно.</div>
+              <div class="tag-row"><span class="tag">Private app</span><span class="tag">Custom distribution</span><span class="tag">No App Store</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">02</div>
+            <div>
+              <div class="item-title">Захиалгын мэдээлэл татах endpoint</div>
+              <div class="item-desc">Shopify Cart/Storefront API-аас хэрэглэгчийн тэргэн дэх бараа, тоо ширхэг, нийт дүнг checkout хуудаснаа татан авна. App-аар олгогдсон credential ашиглана.</div>
+            </div>
+          </li>
+          <li>
+            <div class="num">03</div>
+            <div>
+              <div class="item-title">Монгол хаягийн форм</div>
+              <div class="item-desc">Аймаг → Дүүрэг → Хороо → Хороолол → Гудамж → Байр → Орц → Тоот гэсэн каскадтай dropdown болон нэмэлт талбарууд. Газрын зургийн pin (Google Maps).</div>
+              <div class="tag-row"><span class="tag">Cascading select</span><span class="tag">Map pin</span><span class="tag">Validation</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">04</div>
+            <div>
+              <div class="item-title">Төлбөрийн сонголтын модуль</div>
+              <div class="item-desc">QPay (бүх банкны QR), SocialPay, Khan Bank, Golomt Bank direct, Most Money, картын төлбөр. Хэрэглэгчид сонголт өгнө.</div>
+              <div class="tag-row"><span class="tag">QPay v2</span><span class="tag">SocialPay</span><span class="tag">Khan Bank API</span><span class="tag">Card</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">05</div>
+            <div>
+              <div class="item-title">Захиалга баталгаажуулалт</div>
+              <div class="item-desc">Төлбөр амжилттай хийгдсэний дараа захиалга нь Shopify-ийн өөрийнх нь систем дотор автоматаар "Paid" төлөвт орж, нөөц хасагдаж, fulfillment эхэлнэ. Custom webhook бичих шаардлагагүй — Shopify бүгдийг өөрөө зохицуулна. Хэрэглэгч "Баярлалаа" хуудас руу буцна.</div>
+              <div class="tag-row"><span class="tag">Shopify native flow</span><span class="tag">Auto inventory sync</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">06</div>
+            <div>
+              <div class="item-title">Distribution & Install link</div>
+              <div class="item-desc">Охин компаниудын Shopify store-руу install link дамжуулна. Тэд өөрсдөө install хийх эсвэл бид remote-оор тус бүрд нь install хийж өгнө. Шинэ компани нэмэгдэх бүрд дахин гэрээ хэрэггүй.</div>
+              <div class="tag-row"><span class="tag">Install link</span><span class="tag">Remote setup</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">07</div>
+            <div>
+              <div class="item-title">Admin dashboard (дотоод)</div>
+              <div class="item-desc">Захиалга, төлбөр, refund, error log, transaction history харах хяналтын самбар. Бүх захиалга Shopify-д орох тул admin-нэлээд хялбар.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 5: WHY ============ -->
+  <section class="slide">
+    <div class="slide-num mono">05 / 13</div>
+    <div class="slide-tag">5W 2H · 2 / 7</div>
+
+    <div class="big-letter-slide">
+      <div class="big-letter">
+        <div class="word-en">WHY</div>
+        <div class="letter">W</div>
+        <div class="word-mn">Яагаад?</div>
+      </div>
+
+      <div class="big-letter-content">
+        <h2 class="h">Яагаад энэ <em>аргыг</em> сонгов?</h2>
+        <p class="lead">Shopify-ийн Custom Payment App-ыг батлуулах болон Plus дэлгүүр нээх хугацаа нь баталгаагүй, удаан сунжирдаг. Мөн Монголын төлбөрийн систем, хаягийн UX-д бид өөрсдөө бүрэн контрол хийх шаардлагатай.</p>
+
+        <ul class="detail-list">
+          <li>
+            <div class="num">01</div>
+            <div>
+              <div class="item-title">Shopify-ийн approval-ийн саатлаас зайлсхийнэ</div>
+              <div class="item-desc">Shopify-ийн Custom Payment App нь Shopify-ийн review team-ээр заавал орох ёстой бөгөөд хугацаа нь <strong>албан ёсоор баталгаагүй</strong>. Олон тохиолдолд хэдэн долоо хоногоос хэдэн сар хүртэл сунжирдаг ба iteration хийх бүрд дахин submit хийх шаардлагатай. Бизнесийн хуваарьт энэ тодорхойгүй байдал тохиромжгүй.</div>
+            </div>
+          </li>
+          <li>
+            <div class="num">02</div>
+            <div>
+              <div class="item-title">Монгол хаягийн UX-г бид өөрсдөө шийднэ</div>
+              <div class="item-desc">Shopify-ийн хаягийн систем нь "Address Line 1/2, City, ZIP" гэсэн барууны загвартай. Аймаг/дүүрэг/хороо/тоот хийхэд hack хэрэгтэй болно. Бид өөрсдийн форм дизайн хийнэ.</div>
+            </div>
+          </li>
+          <li>
+            <div class="num">03</div>
+            <div>
+              <div class="item-title">Локал төлбөрийн direct integration</div>
+              <div class="item-desc">QPay, SocialPay, банкны API-ийг шууд холбоно. Дамжуулагч гуравдагч талын fee төлөхгүй. Transaction-ийн алдаа, лог бүгд бидний гарт.</div>
+            </div>
+          </li>
+          <li>
+            <div class="num">04</div>
+            <div>
+              <div class="item-title">Брэндийн identity бүрэн контрол</div>
+              <div class="item-desc">Checkout хуудасны бүх pixel, animation, copy, fonts бид өөрсдийнхөөр хийнэ. Монгол хэрэглэгчийн хүлээж буй UX-д бүрэн тохирно.</div>
+            </div>
+          </li>
+          <li>
+            <div class="num">05</div>
+            <div>
+              <div class="item-title">Дата 100% эзэмших</div>
+              <div class="item-desc">Хэрэглэгчийн зан төлөв, abandon rate, conversion funnel дата нь өөрсдийн analytics-д орно. Future-д ML, retention тоглоомд бэлэн.</div>
+            </div>
+          </li>
+          <li>
+            <div class="num">06</div>
+            <div>
+              <div class="item-title">Бид Shopify Plus-д шилжих шаардлагагүй</div>
+              <div class="item-desc">Shopify Standard plan ($79/сар) дээр үлдэх боломжтой. Plus-ийн $2,000+/сар-ыг хэмнэнэ. Checkout-аа бид өөрсдөө барьдаг тул plan upgrade хэрэггүй.</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 6: WHO ============ -->
+  <section class="slide">
+    <div class="slide-num mono">06 / 13</div>
+    <div class="slide-tag">5W 2H · 3 / 7</div>
+
+    <div class="big-letter-slide">
+      <div class="big-letter">
+        <div class="word-en">WHO</div>
+        <div class="letter">W</div>
+        <div class="word-mn">Хэн?</div>
+      </div>
+
+      <div class="big-letter-content">
+        <h2 class="h">Хэн <em>хариуцаж</em> хэрэгжүүлэх вэ?</h2>
+        <p class="lead">Хөгжүүлэлтэд 4-5 хүний цөөн боловч мэргэшсэн баг байх шаардлагатай. Монголын зах зээлд Shopify платформ дээр мэргэшсэн хөгжүүлэгч ховор тул зөвхөн энэ тал дээр туршлагатай хүнтэй ажиллах нь чухал. Custom checkout нь бүтэн e-commerce platform биш тул багийн гишүүдийн тоо цөөн байж болох ч нэгнийгээ орлох, шийдэл бүр дээр зөвлөгөө өгөх давхар хөгжүүлэгчтэй байх ёстой.</p>
+
+        <ul class="detail-list">
+          <li>
+            <div class="num">01</div>
+            <div>
+              <div class="item-title">Tech Lead / Backend инженер</div>
+              <div class="item-desc">Архитектур шийдэх, backend (Node.js/Go/Python), Shopify API, payment gateway integration хариуцна. <strong>1 хүн.</strong></div>
+              <div class="tag-row"><span class="tag team">SENIOR</span><span class="tag tech">Node.js / Go</span><span class="tag tech">PostgreSQL</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">02</div>
+            <div>
+              <div class="item-title">Shopify-д мэргэшсэн хөгжүүлэгч</div>
+              <div class="item-desc">Shopify Storefront/Admin API, Liquid template, Shopify-ийн checkout flow-ийг сайн мэддэг хүн. Монголд цөөн тул заавал тусгай хайлт хийх шаардлагатай. <strong>1 хүн.</strong></div>
+              <div class="tag-row"><span class="tag team">SHOPIFY EXPERT</span><span class="tag tech">Storefront API</span><span class="tag tech">Admin API</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">03</div>
+            <div>
+              <div class="item-title">Frontend хөгжүүлэгч</div>
+              <div class="item-desc">Checkout UI, хаягийн форм, төлбөрийн хэсэг, mobile responsive хариуцна. React/Next.js эсвэл Vue. <strong>1 хүн.</strong></div>
+              <div class="tag-row"><span class="tag team">MID-SENIOR</span><span class="tag tech">React / Next.js</span><span class="tag tech">Tailwind</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">04</div>
+            <div>
+              <div class="item-title">Орлох / зөвлөх хөгжүүлэгч</div>
+              <div class="item-desc">Багийн гишүүдийн нэгийг түр орлох, шийдэл бүр дээр код review, архитектурын зөвлөгөө өгдөг өөр нэг хөгжүүлэгч заавал хэрэгтэй. Knowledge bus factor-ийг бууруулна. <strong>1 хүн.</strong></div>
+              <div class="tag-row"><span class="tag team">BACKUP</span><span class="tag tech">Code review</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">05</div>
+            <div>
+              <div class="item-title">Product Designer</div>
+              <div class="item-desc">Checkout UX, mobile-first design, Figma дээр прототип, user testing.</div>
+              <div class="tag-row"><span class="tag tech">Figma</span><span class="tag tech">UX research</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">06</div>
+            <div>
+              <div class="item-title">QA Engineer</div>
+              <div class="item-desc">Payment integration testing нь критик. Бүх банкны wallet, бүх device, бүх failure scenario-г шалгах. <strong>1 хүн.</strong></div>
+              <div class="tag-row"><span class="tag tech">Manual + Automation</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">07</div>
+            <div>
+              <div class="item-title">Бизнесийн өмнөөс — E-commerce manager</div>
+              <div class="item-desc">Requirement тодорхойлох, payment provider-уудтай гэрээ хийх, launch-ийг бизнесийн талаас хариуцна. <strong>Одоо байгаа орон тоогоор.</strong></div>
+              <div class="tag-row"><span class="tag team">INTERNAL</span></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 7: WHERE - ARCHITECTURE ============ -->
+  <section class="slide">
+    <div class="slide-num mono">07 / 13</div>
+    <div class="slide-tag">5W 2H · 4 / 7</div>
+    <h2 class="h"><em>W</em>here · Хаана хэрэгжих вэ?</h2>
+    <p class="lead">Системийн архитектур: Shopify-Custom Checkout-Payment Gateway-Хэрэглэгч хооронд урсгал.</p>
+
+    <div class="arch-canvas">
+      <svg class="arch-svg" viewBox="0 0 1200 480" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="boxGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#1A2D4D"/>
+            <stop offset="100%" stop-color="#142540"/>
+          </linearGradient>
+          <linearGradient id="ourBox" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="rgba(212,165,116,0.15)"/>
+            <stop offset="100%" stop-color="rgba(212,165,116,0.05)"/>
+          </linearGradient>
+          <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+            <path d="M0,2 L8,5 L0,8" fill="none" stroke="#D4A574" stroke-width="1.5"/>
+          </marker>
+          <marker id="arrowDim" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+            <path d="M0,2 L8,5 L0,8" fill="none" stroke="#7A8699" stroke-width="1.5"/>
+          </marker>
+        </defs>
+
+        <!-- USER -->
+        <g>
+          <rect x="40" y="200" width="160" height="80" rx="4" fill="url(#boxGrad)" stroke="#7A8699" stroke-width="1"/>
+          <text x="120" y="230" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="2" fill="#7A8699">USER</text>
+          <text x="120" y="252" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="20" fill="#F4F1EA">Хэрэглэгч</text>
+          <text x="120" y="270" text-anchor="middle" font-family="Manrope" font-size="10" fill="#B8C0CC">Browser / Mobile</text>
+        </g>
+
+        <!-- SHOPIFY STORE -->
+        <g>
+          <rect x="280" y="40" width="220" height="100" rx="4" fill="url(#boxGrad)" stroke="#5DA5A8" stroke-width="1"/>
+          <text x="390" y="65" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="2" fill="#5DA5A8">SHOPIFY ECOSYSTEM</text>
+          <text x="390" y="92" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="20" fill="#F4F1EA">Shopify дэлгүүр</text>
+          <text x="390" y="112" text-anchor="middle" font-family="Manrope" font-size="11" fill="#B8C0CC">brand.myshopify.com</text>
+          <text x="390" y="128" text-anchor="middle" font-family="Manrope" font-size="10" fill="#7A8699">Каталог · Тэрэг · Inventory</text>
+        </g>
+
+        <!-- OUR CUSTOM CHECKOUT (HIGHLIGHTED) -->
+        <g>
+          <rect x="280" y="180" width="220" height="120" rx="4" fill="url(#ourBox)" stroke="#D4A574" stroke-width="2"/>
+          <text x="390" y="205" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="2" fill="#D4A574">OUR PRODUCT ★</text>
+          <text x="390" y="232" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="22" fill="#F4F1EA">Custom Checkout</text>
+          <text x="390" y="252" text-anchor="middle" font-family="Manrope" font-size="11" fill="#B8C0CC">payment.brand.mn</text>
+          <text x="390" y="270" text-anchor="middle" font-family="Manrope" font-size="10" fill="#E8C39A">Хаяг · Төлбөр · Validation</text>
+          <text x="390" y="286" text-anchor="middle" font-family="Manrope" font-size="10" fill="#7A8699">Next.js + Node.js</text>
+        </g>
+
+        <!-- DATABASE -->
+        <g>
+          <rect x="280" y="340" width="220" height="80" rx="4" fill="url(#boxGrad)" stroke="#7AA37E" stroke-width="1"/>
+          <text x="390" y="365" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="2" fill="#7AA37E">DATABASE LAYER</text>
+          <text x="390" y="388" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="18" fill="#F4F1EA">PostgreSQL · Redis</text>
+          <text x="390" y="406" text-anchor="middle" font-family="Manrope" font-size="10" fill="#7A8699">Sessions · Logs · Audit</text>
+        </g>
+
+        <!-- PAYMENT GATEWAYS -->
+        <g>
+          <rect x="600" y="60" width="240" height="60" rx="4" fill="url(#boxGrad)" stroke="#C97D3F" stroke-width="1"/>
+          <text x="720" y="85" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="16" fill="#F4F1EA">QPay (бүх банк)</text>
+          <text x="720" y="103" text-anchor="middle" font-family="Manrope" font-size="10" fill="#7A8699">QR · Deeplink</text>
+        </g>
+
+        <g>
+          <rect x="600" y="140" width="240" height="60" rx="4" fill="url(#boxGrad)" stroke="#C97D3F" stroke-width="1"/>
+          <text x="720" y="165" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="16" fill="#F4F1EA">SocialPay · Most Money</text>
+          <text x="720" y="183" text-anchor="middle" font-family="Manrope" font-size="10" fill="#7A8699">Wallet integration</text>
+        </g>
+
+        <g>
+          <rect x="600" y="220" width="240" height="60" rx="4" fill="url(#boxGrad)" stroke="#C97D3F" stroke-width="1"/>
+          <text x="720" y="245" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="16" fill="#F4F1EA">Khan / Golomt API</text>
+          <text x="720" y="263" text-anchor="middle" font-family="Manrope" font-size="10" fill="#7A8699">Direct bank transfer</text>
+        </g>
+
+        <g>
+          <rect x="600" y="300" width="240" height="60" rx="4" fill="url(#boxGrad)" stroke="#C97D3F" stroke-width="1"/>
+          <text x="720" y="325" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="16" fill="#F4F1EA">Card Payment Gateway</text>
+          <text x="720" y="343" text-anchor="middle" font-family="Manrope" font-size="10" fill="#7A8699">Visa · Mastercard</text>
+        </g>
+
+        <!-- SHOPIFY ADMIN API (RIGHT) -->
+        <g>
+          <rect x="940" y="180" width="220" height="120" rx="4" fill="url(#boxGrad)" stroke="#5DA5A8" stroke-width="1"/>
+          <text x="1050" y="205" text-anchor="middle" font-family="JetBrains Mono" font-size="9" letter-spacing="2" fill="#5DA5A8">SHOPIFY API</text>
+          <text x="1050" y="232" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="20" fill="#F4F1EA">Order Sync</text>
+          <text x="1050" y="252" text-anchor="middle" font-family="Manrope" font-size="11" fill="#B8C0CC">Admin REST/GraphQL</text>
+          <text x="1050" y="270" text-anchor="middle" font-family="Manrope" font-size="10" fill="#7A8699">Order create · Fulfillment</text>
+          <text x="1050" y="286" text-anchor="middle" font-family="Manrope" font-size="10" fill="#7A8699">Email · Inventory</text>
+        </g>
+
+        <!-- CONNECTIONS -->
+        <!-- User → Shopify -->
+        <line x1="200" y1="220" x2="280" y2="90" stroke="#7A8699" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowDim)"/>
+        <text x="220" y="155" font-family="JetBrains Mono" font-size="9" fill="#7A8699">1. Browse</text>
+
+        <!-- User → Custom Checkout -->
+        <line x1="200" y1="240" x2="280" y2="240" stroke="#D4A574" stroke-width="2" marker-end="url(#arrow)"/>
+        <text x="215" y="232" font-family="JetBrains Mono" font-size="9" fill="#D4A574">2. Checkout</text>
+
+        <!-- Shopify → Custom (cart token) -->
+        <line x1="390" y1="140" x2="390" y2="180" stroke="#7A8699" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrowDim)"/>
+        <text x="400" y="165" font-family="JetBrains Mono" font-size="9" fill="#7A8699">cart_token</text>
+
+        <!-- Custom → Database -->
+        <line x1="390" y1="300" x2="390" y2="340" stroke="#7AA37E" stroke-width="1.5" marker-end="url(#arrowDim)"/>
+
+        <!-- Custom → Payment gateways -->
+        <line x1="500" y1="210" x2="600" y2="90" stroke="#C97D3F" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <line x1="500" y1="230" x2="600" y2="170" stroke="#C97D3F" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <line x1="500" y1="250" x2="600" y2="250" stroke="#C97D3F" stroke-width="1.5" marker-end="url(#arrow)"/>
+        <line x1="500" y1="270" x2="600" y2="330" stroke="#C97D3F" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+        <!-- Custom → Shopify Admin (sync) -->
+        <line x1="500" y1="240" x2="940" y2="240" stroke="#5DA5A8" stroke-width="2" marker-end="url(#arrow)"/>
+        <text x="700" y="232" font-family="JetBrains Mono" font-size="10" fill="#5DA5A8" text-anchor="middle">3. webhook · Order Created</text>
+
+        <!-- Legend -->
+        <g transform="translate(40, 420)">
+          <text x="0" y="0" font-family="JetBrains Mono" font-size="9" letter-spacing="2" fill="#7A8699">УРСГАЛ:</text>
+          <line x1="65" y1="-3" x2="85" y2="-3" stroke="#D4A574" stroke-width="2"/>
+          <text x="92" y="0" font-family="Manrope" font-size="10" fill="#D4A574">Бидний контрол</text>
+          <line x1="200" y1="-3" x2="220" y2="-3" stroke="#5DA5A8" stroke-width="2"/>
+          <text x="227" y="0" font-family="Manrope" font-size="10" fill="#5DA5A8">Shopify уялдаа</text>
+          <line x1="320" y1="-3" x2="340" y2="-3" stroke="#C97D3F" stroke-width="2"/>
+          <text x="347" y="0" font-family="Manrope" font-size="10" fill="#C97D3F">Payment gateway</text>
+          <line x1="465" y1="-3" x2="485" y2="-3" stroke="#7A8699" stroke-width="1.5" stroke-dasharray="4,4"/>
+          <text x="492" y="0" font-family="Manrope" font-size="10" fill="#7A8699">Дамжуулалт</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 8: WHEN - TIMELINE ============ -->
+  <section class="slide">
+    <div class="slide-num mono">08 / 13</div>
+    <div class="slide-tag">5W 2H · 5 / 7</div>
+    <h2 class="h"><em>W</em>hen · Хэзээ хэрэгжүүлэх вэ?</h2>
+    <p class="lead">Хуудасны хөгжүүлэлтийг Таван Богдын охин компаниудын аль нэгний хамгийн анхны launch үетэй зэрэгцүүлэн нэвтрүүлэх боломжтой. Тодорхой огноо нь launch-ийн төлөвлөгөөнөөс хамаарна.</p>
+
+    <div class="roadmap">
+      <div class="roadmap-grid">
+        <div class="phase">
+          <div class="phase-num">PHASE 01</div>
+          <div class="phase-dot"></div>
+          <div class="phase-time">DISCOVERY</div>
+          <div class="phase-title">Шинжилгээ ба Дизайн</div>
+          <ul class="phase-list">
+            <li>Requirement gathering</li>
+            <li>Архитектур төлөвлөлт</li>
+            <li>Tech stack сонголт</li>
+            <li>UX/UI Figma prototype</li>
+            <li>Payment provider гэрээ</li>
+            <li>Security plan</li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <div class="phase-num">PHASE 02</div>
+          <div class="phase-dot"></div>
+          <div class="phase-time">BUILD</div>
+          <div class="phase-title">Үндсэн хөгжүүлэлт</div>
+          <ul class="phase-list">
+            <li>Backend API (Node.js)</li>
+            <li>Хаягийн форм UI</li>
+            <li>Shopify Cart API integration</li>
+            <li>Database schema</li>
+            <li>Auth & session</li>
+            <li>Admin dashboard MVP</li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <div class="phase-num">PHASE 03</div>
+          <div class="phase-dot"></div>
+          <div class="phase-time">PAYMENT</div>
+          <div class="phase-title">Төлбөрийн интеграц</div>
+          <ul class="phase-list">
+            <li>QPay integration</li>
+            <li>SocialPay integration</li>
+            <li>Khan/Golomt direct API</li>
+            <li>Card payment gateway</li>
+            <li>Failure / retry logic</li>
+            <li>Reconciliation</li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <div class="phase-num">PHASE 04</div>
+          <div class="phase-dot"></div>
+          <div class="phase-time">QA</div>
+          <div class="phase-title">Тестлэлт ба Hardening</div>
+          <ul class="phase-list">
+            <li>End-to-end QA</li>
+            <li>Бүх банкны wallet тест</li>
+            <li>Load testing</li>
+            <li>Security audit</li>
+            <li>Mobile responsive QA</li>
+            <li>Soft launch (limited beta)</li>
+          </ul>
+        </div>
+
+        <div class="phase">
+          <div class="phase-num">PHASE 05</div>
+          <div class="phase-dot"></div>
+          <div class="phase-time">LAUNCH</div>
+          <div class="phase-title">Нэвтрүүлэлт</div>
+          <ul class="phase-list">
+            <li>Охин компанийн launch-тай зэрэг</li>
+            <li>Monitoring 24/7</li>
+            <li>Conversion tracking</li>
+            <li>A/B test setup</li>
+            <li>Bug fix loop</li>
+            <li>Documentation finalize</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="option-context-row" style="--accent-color: var(--gold); margin-top: 24px; background: rgba(212,165,116,0.05); border: 1px solid var(--line); border-left: 3px solid var(--gold); padding: 16px 24px; border-radius: 3px; font-size: 14px; color: var(--ink-dim);">
+      <strong style="color: var(--ink); font-weight: 500;">Анхаарах нь:</strong> Phase 1-3 зэрэгцэн ажиллах боломжтой. Payment integration phase Phase 2-той хэсэгчлэн давхцана. Хугацаа нь багийн хэмжээ, gateway-уудтай гэрээ хийх хурдаас хамаарна.
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 9: HOW ============ -->
+  <section class="slide">
+    <div class="slide-num mono">09 / 13</div>
+    <div class="slide-tag">5W 2H · 6 / 7</div>
+
+    <div class="big-letter-slide">
+      <div class="big-letter">
+        <div class="word-en">HOW</div>
+        <div class="letter">H</div>
+        <div class="word-mn">Яаж?</div>
+      </div>
+
+      <div class="big-letter-content">
+        <h2 class="h">Яаж <em>хэрэгжүүлэх</em> вэ?</h2>
+        <p class="lead">Tech stack, integration pattern, security баталгаа.</p>
+
+        <ul class="detail-list">
+          <li>
+            <div class="num">01</div>
+            <div>
+              <div class="item-title">Tech Stack</div>
+              <div class="item-desc"><strong>Frontend:</strong> Next.js (React, TypeScript) · Tailwind CSS · React Hook Form. <strong>Backend:</strong> Node.js (Fastify) эсвэл Go. <strong>Database:</strong> PostgreSQL + Redis. <strong>Hosting:</strong> AWS (ECS Fargate) эсвэл Vercel. <strong>CDN:</strong> Cloudflare.</div>
+              <div class="tag-row"><span class="tag tech">Next.js</span><span class="tag tech">Node.js</span><span class="tag tech">PostgreSQL</span><span class="tag tech">Redis</span><span class="tag tech">AWS</span><span class="tag tech">Cloudflare</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">02</div>
+            <div>
+              <div class="item-title">Shopify-тай integration pattern</div>
+              <div class="item-desc">Shopify-ийн "Custom App"-ыг суулгаж <strong>Storefront API</strong>-аас cart мэдээлэл татаж, төлбөр амжилттай үед <strong>Admin API</strong>-аар Order create. Webhook ашиглаж inventory sync.</div>
+              <div class="tag-row"><span class="tag">Storefront API</span><span class="tag">Admin API</span><span class="tag">Webhooks</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">03</div>
+            <div>
+              <div class="item-title">Хаягийн систем</div>
+              <div class="item-desc">UB-ийн <strong>9 дүүрэг → 152 хороо</strong>, 21 аймгийн <strong>331 сум</strong>-ын JSON dataset өөрсдөө барина. Cascading dropdown. Хороололын автомат дүүргэлтийн алгоритм. Google Maps pin (заавал биш). Driver-д ойлгомжтой "хүргэлтийн заавар" нэмэлт талбар.</div>
+            </div>
+          </li>
+          <li>
+            <div class="num">04</div>
+            <div>
+              <div class="item-title">Payment integration хандлага</div>
+              <div class="item-desc"><strong>Адаптер pattern</strong> — нэг нэгдсэн PaymentService interface. QPay, SocialPay, банк бүгд адаптераар орно. Шинэ provider нэмэхэд код өөрчлөх биш зүгээр шинэ adapter бичнэ. Webhook listener-үүд retry logic-той.</div>
+            </div>
+          </li>
+          <li>
+            <div class="num">05</div>
+            <div>
+              <div class="item-title">Security baseline</div>
+              <div class="item-desc"><strong>Картын мэдээлэл бид хадгалахгүй</strong> — gateway-ийн hosted page руу redirect (PCI scope reduce). HTTPS only · Rate limiting · CSRF protection · Input sanitization · Secret rotation · Audit logs · WAF (Cloudflare).</div>
+              <div class="tag-row"><span class="tag">Tokenization</span><span class="tag">No card storage</span><span class="tag">WAF</span></div>
+            </div>
+          </li>
+          <li>
+            <div class="num">06</div>
+            <div>
+              <div class="item-title">Хяналт ба алдаа удирдлага</div>
+              <div class="item-desc"><strong>Sentry</strong> error tracking · <strong>Datadog/Grafana</strong> APM · <strong>BetterStack</strong> uptime monitoring · Slack alert · 24/7 on-call rotation. Failed transaction-ийн автомат retry + manual review queue.</div>
+              <div class="tag-row"><span class="tag tech">Sentry</span><span class="tag tech">Grafana</span><span class="tag tech">Slack alerts</span></div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 10: HOW MUCH ============ -->
+  <section class="slide">
+    <div class="slide-num mono">10 / 13</div>
+    <div class="slide-tag">5W 2H · 7 / 7</div>
+    <h2 class="h"><em>H</em>ow much · Хэр их <em>зардал</em>?</h2>
+    <p class="lead">Зардал нь хөгжүүлэлтэд оролцох багийн ажилласан хүн/цаг, дэд бүтэц, гуравдагч талын үйлчилгээний төлбөрийг нэгтгэн тооцооолно. Тодорхой дүн нь scope, баг бүрэлдэхүүн, гэрээний нөхцөлөөс хамаарна.</p>
+
+    <div class="cost-grid">
+      <div class="cost-card">
+        <h4>Нэг төлбөрийн систем</h4>
+        <div class="viz-sub">Per Payment Provider · юу багтах вэ</div>
+
+        <ul class="pc-list" style="margin-top: 16px;">
+          <li><strong>API integration.</strong> QPay, SocialPay, банкны API-аас хамаарч нийлмэл байдал өөр өөр.</li>
+          <li><strong>Webhook ба callback handling.</strong> Төлбөрийн төлөв шинэчлэлт, retry logic.</li>
+          <li><strong>Failure scenario тестлэлт.</strong> Бүтэлгүй гүйлгээний бүх төрлийг шалгана.</li>
+          <li><strong>Reconciliation.</strong> Өдөр бүрийн транзакц банкны мэдээлэлтэй тулгана.</li>
+          <li><strong>Documentation.</strong> Internal handoff, troubleshooting playbook.</li>
+        </ul>
+
+        <div style="margin-top: 24px; padding: 18px 22px; background: rgba(212,165,116,0.06); border: 1px solid var(--line); border-radius: 4px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.25em; color: var(--ink-soft); margin-bottom: 6px;">ЗАРДЛЫН ХҮРЭЭ</div>
+          <div style="font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--ink-dim); line-height: 1.4;">
+            Provider-ийн API-ийн нийлмэлээс хамаарч <strong style="color: var(--ink); font-style: normal;">бага–дунд</strong> хүрээнд. QPay/SocialPay харьцангуй энгийн, банкны direct integration илүү нийлмэл.
+          </div>
+        </div>
+      </div>
+
+      <div class="cost-card">
+        <h4>Анхны бүрэн нэвтрүүлэлт</h4>
+        <div class="viz-sub">Initial Launch · юу багтах вэ</div>
+
+        <ul class="pc-list" style="margin-top: 16px;">
+          <li><strong>Frontend хөгжүүлэлт.</strong> Checkout UI, хаягийн форм, mobile responsive.</li>
+          <li><strong>Backend + Shopify integration.</strong> Cart sync, order flow, admin dashboard.</li>
+          <li><strong>Хэд хэдэн төлбөрийн системийн интеграц.</strong> QPay, SocialPay, банк, карт.</li>
+          <li><strong>Дизайн + UX research.</strong> Figma prototype, user testing.</li>
+          <li><strong>QA + security audit.</strong> End-to-end тест, penetration test.</li>
+          <li><strong>Дэд бүтэц.</strong> Cloud, CDN, monitoring, backup setup.</li>
+        </ul>
+
+        <div style="margin-top: 24px; padding: 18px 22px; background: rgba(212,165,116,0.06); border: 1px solid var(--line); border-radius: 4px;">
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.25em; color: var(--ink-soft); margin-bottom: 6px;">ЗАРДЛЫН ХҮРЭЭ</div>
+          <div style="font-family: 'Cormorant Garamond', serif; font-size: 18px; font-style: italic; color: var(--ink-dim); line-height: 1.4;">
+            Хөгжүүлэлтийн scope, багийн бүрэлдэхүүн, гэрээний нөхцлөөс хамаарч <strong style="color: var(--ink); font-style: normal;">тоймтой хүрээнд</strong>. Нарийвчилсан тооцоог Phase 01 — Discovery шатанд гаргана.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="option-context-row" style="--accent-color: var(--gold); margin-top: 24px; background: rgba(212,165,116,0.05); border: 1px solid var(--line); border-left: 3px solid var(--gold); padding: 16px 24px; border-radius: 3px; font-size: 14px; color: var(--ink-dim);">
+      <strong style="color: var(--ink); font-weight: 500;">Тооцооллын зарчим:</strong> Зардал нь багийн ажилласан хүн/цаг дээр үндэслэн тооцогдоно. Нарийвчилсан хүн/цагийн тооцоо болон scope-ийг Discovery шатанд багаар хамтран гаргаж, удирдлагад танилцуулна.
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 11: SHOPIFY APP COMPARISON (PROS/CONS) ============ -->
+  <section class="slide">
+    <div class="slide-num mono">11 / 13</div>
+    <div class="slide-tag">Альтернатив · Shopify Custom Payment App</div>
+    <h2 class="h">Shopify App замын <em>давуу ба сул талууд</em></h2>
+
+    <div class="pc-grid">
+      <div class="pc-block pros">
+        <div class="pc-head">
+          <div class="icon">+</div>
+          <h4>Shopify App-ийн давуу талууд</h4>
+          <span class="count">06 ХҮЧТЭЙ ТАЛ</span>
+        </div>
+        <ul class="pc-list">
+          <li><strong>Нэгдсэн checkout flow.</strong> Хэрэглэгч Shopify-ийн нэг интерфэйсэд үлдэж, гадагш redirect болохгүй. Conversion-д давуу.<span class="pc-tag">UX win</span></li>
+          <li><strong>Shop Pay, Apple Pay авч хэрэглэх боломж.</strong> Shopify-ийн express checkout features интегрэйц хэвээр.</li>
+          <li><strong>PCI compliance Shopify хариуцна.</strong> Картын мэдээлэл бидэнд хүрэхгүй — security scope бүрэн Shopify дээр.<span class="pc-tag">Security +</span></li>
+          <li><strong>Shopify-ийн analytics, abandoned cart, email marketing</strong> бүгд out-of-the-box ажиллана. Бид дахин барих шаардлагагүй.</li>
+          <li><strong>Олон улсад хэмжээгүй scaling.</strong> Multi-currency, multi-language Shopify-аар хэвээр.</li>
+          <li><strong>Tech Lead-ийн дутагдалд давуу.</strong> Shopify-ийн convention дагах учир архитектур шийдвэр бага.</li>
+        </ul>
+      </div>
+
+      <div class="pc-block cons">
+        <div class="pc-head">
+          <div class="icon">−</div>
+          <h4>Shopify App-ийн сул талууд</h4>
+          <span class="count">07 АСУУДАЛ</span>
+        </div>
+        <ul class="pc-list">
+          <li><strong>Approval хүлээх хугацаа баталгаагүй.</strong> Shopify Partner team review хийдэг бөгөөд хэдэн долоо хоногоос хэдэн сар хүртэл сунжирч болно. Шаардлага өөрчлөгдвөл дахин submit хийх шаардлагатай.<span class="pc-tag">Timeline risk</span></li>
+          <li><strong>Хаягийн форм хязгаарлагдмал.</strong> Аймаг/дүүрэг/хороо/хороолол гэсэн каскад нэмэх боломжгүй. Standard plan-д JS inject хязгаарлагдмал.<span class="pc-tag">Critical</span></li>
+          <li><strong>Shopify Plus заавал болно.</strong> Checkout-ийг гүн customize хийхэд $2,000+/сар Plus subscription шаардлагатай.</li>
+          <li><strong>Plus onboarding нэмэлт хугацаа.</strong> Shopify Plus аккаунт нээж, баталгаажуулахад нэмэлт хугацаа шаардлагатай.</li>
+          <li><strong>Локал төлбөрийн direct connection хязгаарлагдмал.</strong> QPay/SocialPay-ийг "alternative payment method" болгож нэмэх ёстой ч UI хязгаартай.</li>
+          <li><strong>Транзакцийн нэмэлт fee.</strong> Shopify-ээс өөр payment provider ашиглавал 0.5-2% extra (зөвхөн Shopify Payments-аас өөр).</li>
+          <li><strong>Custom fraud rule, A/B test, animation хязгаартай.</strong> Бид өөрсдийн UX research-ийн үр дүнг хэрэгжүүлэх боломж бага.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 12: RISKS & MITIGATIONS ============ -->
+  <section class="slide">
+    <div class="slide-num mono">12 / 13</div>
+    <div class="slide-tag">Эрсдэл ба сэргийлэлт · Risks & Mitigations</div>
+    <h2 class="h">Бидний <em>эрсдэлүүд</em> ба сэргийлэх арга</h2>
+    <p class="lead">Custom checkout зам нь зарим эрсдэлийг өөртөө хүлээж авна. Бүгдийг нь өмнө нь тодорхойлж, mitigation plan гаргалаа.</p>
+
+    <div class="risk-grid">
+      <div class="risk-card high">
+        <div class="risk-tag">ТЕХНИКИЙН · ӨНДӨР</div>
+        <div class="risk-name">Payment provider downtime</div>
+        <div class="risk-desc">QPay/SocialPay/банкны API-д асуудал гарвал хэрэглэгч төлбөр хийж чадахгүй болно. Бид доош суух эрсдэл.</div>
+        <div class="risk-mitigation">
+          <strong>Mitigation</strong>
+          Олон альтернатив төлбөр санал болгох. Failover detection. Status page. Support бэлэн.
+        </div>
+      </div>
+
+      <div class="risk-card high">
+        <div class="risk-tag">АЮУЛГҮЙ БАЙДАЛ · ӨНДӨР</div>
+        <div class="risk-name">Хувийн дата leak</div>
+        <div class="risk-desc">Хэрэглэгчийн нэр, хаяг, утас хадгалагдана. Хакердуулбал брэндэд цохилт, хууль зүйн хариуцлага.</div>
+        <div class="risk-mitigation">
+          <strong>Mitigation</strong>
+          Карт мэдээлэл бид хадгалахгүй. WAF · encryption at rest · pen test · ХЗДНХ-ийн дагуу .mn server.
+        </div>
+      </div>
+
+      <div class="risk-card high">
+        <div class="risk-tag">БИЗНЕСИЙН · ӨНДӨР</div>
+        <div class="risk-name">Гол developer leave</div>
+        <div class="risk-desc">Tech Lead leave болоход knowledge алдагдаж, проект 3-6 сараар хойшлох эрсдэлтэй.</div>
+        <div class="risk-mitigation">
+          <strong>Mitigation</strong>
+          Documentation-ийг хатуу барих. Code review pair programming. Knowledge transfer session. Retention bonus.
+        </div>
+      </div>
+
+      <div class="risk-card med">
+        <div class="risk-tag">ОПЕРЭЙШНИЙ · ДУНД</div>
+        <div class="risk-name">Failed transaction handling</div>
+        <div class="risk-desc">Хэрэглэгч төлбөр хийсэн боловч Shopify-д захиалга үүсэхгүй edge case. Customer support хэцүү болно.</div>
+        <div class="risk-mitigation">
+          <strong>Mitigation</strong>
+          Idempotency keys · webhook retry · manual review queue · daily reconciliation.
+        </div>
+      </div>
+
+      <div class="risk-card med">
+        <div class="risk-tag">ХУУЛИЙН · ДУНД</div>
+        <div class="risk-name">э-Баримт интеграц</div>
+        <div class="risk-desc">ТУ-ын eTax системд НӨАТ-ийн е-баримт автомат бүртгэх шаардлага. Гар буруу буюу late filing.</div>
+        <div class="risk-mitigation">
+          <strong>Mitigation</strong>
+          eBarimt API-г 1-р phase-д integration. Тестийн орчинд 2 сар тест. Backup manual process.
+        </div>
+      </div>
+
+      <div class="risk-card med">
+        <div class="risk-tag">ТЕХНИКИЙН · ДУНД</div>
+        <div class="risk-name">Shopify API rate limit</div>
+        <div class="risk-desc">Black Friday гэх мэт өндөр ачаалалд Shopify Admin API-ийн rate limit-д удааширч магадгүй.</div>
+        <div class="risk-mitigation">
+          <strong>Mitigation</strong>
+          Bulk operations API. Queue (Redis) ашиглах. GraphQL Admin API (REST-ээс илүү хариу хурд).
+        </div>
+      </div>
+
+      <div class="risk-card low">
+        <div class="risk-tag">ХУГАЦААНЫ · БАГА</div>
+        <div class="risk-name">Phase 3-ын саатал</div>
+        <div class="risk-desc">QPay/SocialPay-тай гэрээ, integration урт болж launch хойшлох магадлал.</div>
+        <div class="risk-mitigation">
+          <strong>Mitigation</strong>
+          Phase 1-ээс провайдертай гэрээ эхлэх. Парциаль launch — эхлээд QPay, дараа нь SocialPay.
+        </div>
+      </div>
+
+      <div class="risk-card low">
+        <div class="risk-tag">UX-ийн · БАГА</div>
+        <div class="risk-name">Domain-аар redirect-аас айх</div>
+        <div class="risk-desc">Хэрэглэгч brand.mn → payment.brand.mn руу шилжихэд "phishing" мэт мэдрэмж төрж, abandon хийх.</div>
+        <div class="risk-mitigation">
+          <strong>Mitigation</strong>
+          Тогтвортой брэнд UI. SSL certificate visible. "Найдвартай төлбөр" badge. Subdomain-ийн брэнд дизайн адил.
+        </div>
+      </div>
+
+      <div class="risk-card low">
+        <div class="risk-tag">SCALING · БАГА</div>
+        <div class="risk-name">Олон улсад тэлэх</div>
+        <div class="risk-desc">Хэрэв олон улсад худалдаа хийе гэвэл multi-currency, олон хэлийг өөрсдөө дэмжих хэрэгтэй.</div>
+        <div class="risk-mitigation">
+          <strong>Mitigation</strong>
+          Phase 1-д Монголд фокус. International scaling-ийг 18 сарын дараа авч үзнэ.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SLIDE 13: NEXT STEPS ============ -->
+  <section class="slide end-slide">
+    <div class="slide-num mono">13 / 13</div>
+
+    <div style="max-width: 1100px; margin: 0 auto; text-align: left; width: 100%;">
+      <div class="slide-tag" style="justify-content: flex-start;">Дараагийн алхмууд · Next Steps</div>
+
+      <h2 class="h" style="text-align: left; font-size: 56px; line-height: 1.05;">
+        Шийдвэр гарсан. <em>Тэгвэл</em> юунаас эхлэх вэ?
+      </h2>
+
+      <ul class="detail-list" style="margin-top: 36px;">
+        <li>
+          <div class="num">01</div>
+          <div>
+            <div class="item-title">Багийн бүрэлдэхүүн баталгаажуулах</div>
+            <div class="item-desc">Tech Lead томилох эсвэл нөхдөж нэмж авах. Frontend developer-ийн capacity тодруулах. Designer contractor-той гэрээ.</div>
+            <div class="tag-row"><span class="tag">2 долоо хоног</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="num">02</div>
+          <div>
+            <div class="item-title">Payment provider-уудтай гэрээ эхлүүлэх</div>
+            <div class="item-desc">QPay, SocialPay, Khan Bank, Golomt Bank-тай meeting set хийх. Integration documentation авах. Test environment эрх авах.</div>
+            <div class="tag-row"><span class="tag">2-3 долоо хоног</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="num">03</div>
+          <div>
+            <div class="item-title">Detailed BRD ба architecture document</div>
+            <div class="item-desc">Энэхүү 5W 2H slide-аас илүү гүн нарийн BRD баримт. API contract, database schema, security plan-ыг бичнэ.</div>
+            <div class="tag-row"><span class="tag">3 долоо хоног</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="num">04</div>
+          <div>
+            <div class="item-title">UX prototype + user testing</div>
+            <div class="item-desc">Figma дээр checkout flow-ийн прототип. 10-15 хэрэглэгчтэй user testing хийж feedback цуглуулна.</div>
+            <div class="tag-row"><span class="tag">3 долоо хоног</span></div>
+          </div>
+        </li>
+        <li>
+          <div class="num">05</div>
+          <div>
+            <div class="item-title">Phase 02 — Code эхлэх</div>
+            <div class="item-desc">Sprint планинг. Repository setup. CI/CD pipeline. Хөгжүүлэлт албан ёсоор эхэлнэ.</div>
+            <div class="tag-row"><span class="tag">2 сар</span></div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <svg class="mountains" viewBox="0 0 1400 240" preserveAspectRatio="none">
+      <path d="M0,240 L0,140 L180,60 L320,150 L520,40 L720,170 L920,80 L1120,160 L1280,90 L1400,140 L1400,240 Z" fill="rgba(212,165,116,0.15)"/>
+      <path d="M0,240 L0,180 L150,110 L350,170 L580,90 L780,180 L980,120 L1200,190 L1400,150 L1400,240 Z" fill="rgba(93,165,168,0.18)"/>
+    </svg>
+  </section>
+
+</div>
+
+<!-- Navigation -->
+<div class="kbd-hint">
+  <kbd>←</kbd> <kbd>→</kbd> ШИЛЖИХ &nbsp;·&nbsp; <kbd>F</kbd> ДҮҮРЭН ДЭЛГЭЦ
+</div>
+
+<div class="nav-bar">
+  <button class="nav-btn" id="prev" aria-label="Өмнөх">‹</button>
+  <div class="progress-track" id="progress"></div>
+  <button class="nav-btn" id="next" aria-label="Дараах">›</button>
+</div>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+const total = slides.length;
+let current = 0;
+
+const prog = document.getElementById('progress');
+const visited = new Set([0]);
+
+for (let i = 0; i < total; i++) {
+  const dot = document.createElement('div');
+  dot.className = 'progress-dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => go(i));
+  prog.appendChild(dot);
+}
+
+const dots = prog.children;
+
+function go(idx) {
+  if (idx < 0 || idx >= total) return;
+  slides[current].classList.remove('active');
+  dots[current].classList.remove('active');
+  visited.add(idx);
+
+  current = idx;
+
+  slides[current].classList.add('active');
+  for (let i = 0; i < total; i++) {
+    dots[i].classList.toggle('visited', visited.has(i) && i !== current);
+    dots[i].classList.toggle('active', i === current);
+  }
+
+  document.getElementById('prev').disabled = current === 0;
+  document.getElementById('next').disabled = current === total - 1;
+}
+
+document.getElementById('prev').addEventListener('click', () => go(current - 1));
+document.getElementById('next').addEventListener('click', () => go(current + 1));
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); go(current + 1); }
+  if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); go(current - 1); }
+  if (e.key === 'Home') { e.preventDefault(); go(0); }
+  if (e.key === 'End') { e.preventDefault(); go(total - 1); }
+  if (e.key === 'f' || e.key === 'F') {
+    if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+    else document.exitFullscreen();
+  }
+});
+
+// Init
+go(0);
+</script>
+
+</body>
+</html>
